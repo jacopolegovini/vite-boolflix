@@ -8,18 +8,23 @@ export default {
   data() {
     return {
       store,
-      apiCall: `https://api.themoviedb.org/3/search/movie?api_key=34587ee4d591e753a1e153f18ed4c583&query=alien`
+      // apiCall: `https://api.themoviedb.org/3/search/movie?api_key=34587ee4d591e753a1e153f18ed4c583&query=alien`
     }
   },
   methods: {
-    getApi() {
-      axios.get(this.apiCall)
-        .then((response) => {
-          console.log(response.data)
-          store.foundFilms = response.data
+    // getApi() {
+    //   axios.get(this.apiCall)
+    //     .then((response) => {
+    //       console.log(this.apiCall)
+    //       console.log(response.data)
+    //       store.foundFilms = response.data
+    //     })
+    // },
 
-        })
-    }
+    // modifyApiCall() {
+    //   store.apiCallComplete = this.apiCall + store.searchedFilm
+    //   console.log(this.apiCall)
+    // }
   },
 
   components: {
@@ -28,7 +33,8 @@ export default {
   },
 
   mounted() {
-    this.getApi()
+    // this.modifyApiCall()
+    // this.getApi()
   }
 }
 </script>
