@@ -25,6 +25,11 @@ export default {
             <!-- <li v-if="store.nationalities !== ''">test</li> -->
             <li>{{ foundFilm.vote_average }}</li>
         </ul>
+        <ul v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
+            <li>{{ foundSerie.name }}</li>
+            <li>{{ foundSerie.original_name }}</li>
+            <li>{{ foundSerie.original_language }}: <lang-flag :iso=foundSerie.original_language /></li>
+        </ul>
     </main>
 </template>
 
