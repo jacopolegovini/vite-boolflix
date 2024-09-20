@@ -4,12 +4,18 @@ export default {
         return {
 
         }
+    },
+    methods: {
+        searchFilm(searchedFilm) {
+            console.log(searchedFilm)
+        }
     }
 }
 </script>
 
 <template>
-    <h3>SearchFilm</h3>
+    <input type="text" v-model="searchedFilm" @keyup.enter="searchFilm(searchedFilm)">
+    <button @click="searchFilm(searchedFilm)">Cerca</button>
 </template>
 
 <style scoped></style>
