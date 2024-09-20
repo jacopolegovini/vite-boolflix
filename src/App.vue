@@ -16,7 +16,7 @@ export default {
       axios.get(this.apiCall)
         .then((response) => {
           console.log(response.data)
-          store.foundFilm = response.data
+          store.foundFilms = response.data
 
         })
     }
