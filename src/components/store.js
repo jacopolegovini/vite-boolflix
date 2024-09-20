@@ -6,6 +6,7 @@ export const store = reactive({
     foundFilms: {},
     foundSeries: {},
     searchedFilm: '',
+    typeOfEntertainment: '',
     apiCallComplete: '',
     errorMessage: false,
 
@@ -34,6 +35,7 @@ export const store = reactive({
         let apiCallTvComplete = apiCallTv + searchedFilm;
         console.log(apiCallComplete)
         console.log(apiCallTvComplete)
+
 
         // Faccio partire la chiamata per i film
         axios.get(apiCallComplete)
