@@ -36,46 +36,47 @@ export const store = reactive({
         console.log(apiCallComplete)
         console.log(apiCallTvComplete)
 
+        if (this.typeOfEntertainment === 'film') {
+            // Faccio partire la chiamata per i film
+            axios.get(apiCallComplete)
+                .then((response) => {
+                    console.log(apiCallComplete)
+                    console.log(response.data)
 
-        // Faccio partire la chiamata per i film
-        axios.get(apiCallComplete)
-            .then((response) => {
-                console.log(apiCallComplete)
-                console.log(response.data)
+                    // Condizione qualora la ricerca non portasse a nulla
+                    if (response.data.results.length === 0) {
+                        console.log('errore')
+                        this.foundFilms = ''
+                        return this.errorMessage = true
+                    }
 
-                // Condizione qualora la ricerca non portasse a nulla
-                if (response.data.results.length === 0) {
-                    console.log('errore')
-                    this.foundFilms = ''
-                    return this.errorMessage = true
-                }
+                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                    this.errorMessage = false
 
-                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                this.errorMessage = false
+                    // Setta la variabile con l'oggetto desiderato
+                    this.foundFilms = response.data
+                })
+        } else {
+            // Faccio partire la chiamata per le serie
+            axios.get(apiCallTvComplete)
+                .then((response) => {
+                    console.log(apiCallTvComplete)
+                    console.log(response.data)
 
-                // Setta la variabile con l'oggetto desiderato
-                this.foundFilms = response.data
-            })
+                    // Condizione qualora la ricerca non portasse a nulla
+                    if (response.data.results.length === 0) {
+                        console.log('errore')
+                        this.foundSeries = ''
+                        return this.errorMessage = true
+                    }
 
-        // Faccio partire la chiamata per le serie
-        axios.get(apiCallTvComplete)
-            .then((response) => {
-                console.log(apiCallTvComplete)
-                console.log(response.data)
+                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                    this.errorMessage = false
 
-                // Condizione qualora la ricerca non portasse a nulla
-                if (response.data.results.length === 0) {
-                    console.log('errore')
-                    this.foundSeries = ''
-                    return this.errorMessage = true
-                }
-
-                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                this.errorMessage = false
-
-                // Setta la variabile con l'oggetto desiderato
-                this.foundSeries = response.data
-            })
+                    // Setta la variabile con l'oggetto desiderato
+                    this.foundSeries = response.data
+                })
+        }
     },
     nationalities: {
         am: 'et',
