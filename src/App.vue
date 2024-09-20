@@ -8,10 +8,13 @@ export default {
   data() {
     return {
       store,
-      // apiCall: `https://api.themoviedb.org/3/search/movie?api_key=34587ee4d591e753a1e153f18ed4c583&query=alien`
+
     }
   },
   methods: {
+
+    // Metodi spostati in store, non più utili
+    // ----------------------------------------
     // getApi() {
     //   axios.get(this.apiCall)
     //     .then((response) => {
@@ -25,6 +28,8 @@ export default {
     //   store.apiCallComplete = this.apiCall + store.searchedFilm
     //   console.log(this.apiCall)
     // }
+    // ----------------------------------------
+
   },
 
   components: {

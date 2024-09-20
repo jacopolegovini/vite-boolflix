@@ -19,8 +19,9 @@ export default {
 </script>
 
 <template>
-    <input type="text" v-model="searchedFilm" @keyup.enter="searchFilm(searchedFilm), store.getApi()">
-    <button @click="searchFilm(searchedFilm), store.getApi()">Cerca</button>
+    <input type="text" v-model="searchedFilm"
+        @keyup.enter="searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">
+    <button @click="searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">Cerca</button>
 </template>
 
 <style scoped></style>
