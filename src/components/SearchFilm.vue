@@ -1,21 +1,15 @@
 <script>
-import SearchFilm from './SearchFilm.vue'
-
 export default {
     data() {
         return {
 
         }
-    },
-    components: {
-        SearchFilm
     }
 }
 </script>
 
 <template>
-    <h1>Header</h1>
-    <SearchFilm />
+    <h3>SearchFilm</h3>
 </template>
 
 <style scoped></style>
