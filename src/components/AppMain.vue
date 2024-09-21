@@ -78,7 +78,8 @@ export default {
                 
                 <div class="general-results">
                     <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
-                        <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
+                        <li v-if="foundFilm.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
+                        <li class="img-placeholder" v-else><img src="" alt="placeholder"></li>
                         <li>{{ foundFilm.title }}</li>
                         <li>{{ foundFilm.original_title }}</li>
                         <li v-if="createKeyObject(foundFilm)">
@@ -130,5 +131,13 @@ export default {
         font-size: 2rem;
         font-weight: 500;
         padding-top: 20px;
+    }
+
+    img {
+        border: 1px solid white;
+    }
+
+    .img-placeholder img {
+        width: 342px;
     }
 </style>
