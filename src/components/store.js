@@ -6,7 +6,7 @@ export const store = reactive({
     foundFilms: {},
     foundSeries: {},
     searchedFilm: '',
-    typeOfEntertainment: '',
+    typeOfEntertainment: 'film-serie',
     apiCallComplete: '',
     errorMessage: false,
     nationalities: {

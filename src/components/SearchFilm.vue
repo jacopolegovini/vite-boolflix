@@ -25,8 +25,8 @@ export default {
         <div class="general-search-film">
             <input type="text" v-model="searchedFilm"
                 @keyup.enter="searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">
-            <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment)">
-                <option selected value="film-serie">Film & Serie</option>
+            <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment), searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">
+                <option value="film-serie">Film & Serie</option>
                 <option value="film">Film</option>
                 <option value="serie">Serie</option>
             </select>
@@ -48,7 +48,7 @@ export default {
 
     select {
         border-radius: 20px;
-        padding-left: 15px;
+        padding: 0 15px;
     }
 
     button {
