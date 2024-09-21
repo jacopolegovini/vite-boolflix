@@ -1,6 +1,7 @@
 <script>
 import SearchFilm from './SearchFilm.vue'
 
+
 export default {
     data() {
         return {
@@ -8,12 +9,13 @@ export default {
         }
     },
     components: {
-        SearchFilm
+        SearchFilm,
     }
 }
 </script>
 
 <template>
+    
     <h1>Header</h1>
     <SearchFilm />
 </template>
