@@ -15,8 +15,29 @@ export default {
 </script>
 
 <template>
-    <h1>Header</h1>
-    <SearchFilm />
+    <header>
+        <div class="general-header container">
+            <h1>boolflix</h1>
+            <SearchFilm />
+        </div>
+    </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+    header {
+        background-color: black;
+        height: 10vh;
+    }
+
+    .general-header {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h1 {
+        text-transform: uppercase;
+        color: red;
+    }
+</style>
