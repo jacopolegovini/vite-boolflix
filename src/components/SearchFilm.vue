@@ -26,7 +26,7 @@ export default {
     <input type="text" v-model="searchedFilm"
         @keyup.enter="searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">
     <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment)">
-        <option value="" selected>Film & Serie</option>
+        <option selected value="film-serie">Film & Serie</option>
         <option value="film">Film</option>
         <option value="serie">Serie</option>
     </select>

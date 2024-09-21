@@ -9,105 +9,6 @@ export const store = reactive({
     typeOfEntertainment: '',
     apiCallComplete: '',
     errorMessage: false,
-
-    // Methods
-    // Metodo che ingloba getApi() e che mi permette di modificare la stringa e richiamarla insieme
-    modifyGetApiCall(searchedFilm) {
-        // Dichiaro la stringa della API
-        let apiCall = `https://api.themoviedb.org/3/search/movie?api_key=34587ee4d591e753a1e153f18ed4c583&query=`;
-        let apiCallTv = `https://api.themoviedb.org/3/search/tv?api_key=34587ee4d591e753a1e153f18ed4c583&query=`;
-
-        // Metto insieme con la parola cercata
-        let apiCallComplete = apiCall + searchedFilm;
-        let apiCallTvComplete = apiCallTv + searchedFilm;
-        console.log(apiCallComplete)
-        console.log(apiCallTvComplete)
-
-        if (this.typeOfEntertainment === 'film') {
-
-            // Faccio partire la chiamata per i film
-            axios.get(apiCallComplete)
-                .then((response) => {
-                    console.log(apiCallComplete)
-                    console.log(response.data)
-
-                    // Condizione qualora la ricerca non portasse a nulla
-                    if (response.data.results.length === 0) {
-                        console.log('errore')
-                        this.foundFilms = ''
-                        return this.errorMessage = true
-                    }
-
-                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                    this.errorMessage = false
-
-                    // Setta la variabile con l'oggetto desiderato
-                    this.foundFilms = response.data
-                })
-        } else if (this.typeOfEntertainment === 'serie') {
-
-            // Faccio partire la chiamata per le serie
-            axios.get(apiCallTvComplete)
-                .then((response) => {
-                    console.log(apiCallTvComplete)
-                    console.log(response.data)
-
-                    // Condizione qualora la ricerca non portasse a nulla
-                    if (response.data.results.length === 0) {
-                        console.log('errore')
-                        this.foundSeries = ''
-                        return this.errorMessage = true
-                    }
-
-                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                    this.errorMessage = false
-
-                    // Setta la variabile con l'oggetto desiderato
-                    this.foundSeries = response.data
-                })
-        } else {
-
-            // Faccio partire la chiamata per il film
-            axios.get(apiCallComplete)
-                .then((response) => {
-                    console.log(apiCallComplete)
-                    console.log(response.data)
-
-                    // Condizione qualora la ricerca non portasse a nulla
-                    if (response.data.results.length === 0) {
-                        console.log('errore')
-                        this.foundFilms = ''
-                        return this.errorMessage = true
-                    }
-
-                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                    this.errorMessage = false
-
-                    // Setta la variabile con l'oggetto desiderato
-                    this.foundFilms = response.data
-                })
-
-            // Faccio partire la chiamata per le serie
-            axios.get(apiCallTvComplete)
-                .then((response) => {
-                    console.log(apiCallTvComplete)
-                    console.log(response.data)
-
-                    // Condizione qualora la ricerca non portasse a nulla
-                    if (response.data.results.length === 0) {
-                        console.log('errore')
-                        this.foundSeries = ''
-                        return this.errorMessage = true
-                    }
-
-                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                    this.errorMessage = false
-
-                    // Setta la variabile con l'oggetto desiderato
-                    this.foundSeries = response.data
-                })
-        }
-    },
     nationalities: {
         am: 'et',
         ar: 'sy',
@@ -152,6 +53,75 @@ export const store = reactive({
         vi: 'vn',
         zh: 'cn',
     },
+
+    // ! Methods
+    // Metodo che ingloba getApi() e che mi permette di modificare la stringa e richiamarla insieme
+    modifyGetApiCall(searchedFilm) {
+        // Dichiaro la stringa della API
+        let apiCall = `https://api.themoviedb.org/3/search/movie?api_key=34587ee4d591e753a1e153f18ed4c583&query=`;
+        let apiCallTv = `https://api.themoviedb.org/3/search/tv?api_key=34587ee4d591e753a1e153f18ed4c583&query=`;
+
+        // Metto insieme con la parola cercata
+        let apiCallComplete = apiCall + searchedFilm;
+        let apiCallTvComplete = apiCallTv + searchedFilm;
+        console.log(apiCallComplete)
+        console.log(apiCallTvComplete)
+
+        // Gestisco le varie condizioni con le funzioni preparate 
+        if (this.typeOfEntertainment === 'film') {
+            this.getFilm(apiCallComplete)
+
+        } else if (this.typeOfEntertainment === 'serie') {
+            this.getSerie(apiCallTvComplete)
+
+        } else {
+            this.getFilm(apiCallComplete)
+            this.getSerie(apiCallTvComplete)
+        }
+    },
+
+    getFilm(apiCallComplete) {
+        axios.get(apiCallComplete)
+            .then((response) => {
+                console.log(apiCallComplete)
+                console.log(response.data)
+
+                // Condizione qualora la ricerca non portasse a nulla
+                if (response.data.results.length === 0) {
+                    console.log('errore')
+                    this.foundFilms = ''
+                    return this.errorMessage = true
+                }
+
+                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                this.errorMessage = false
+
+                // Setta la variabile con l'oggetto desiderato
+                this.foundFilms = response.data
+            })
+    },
+
+    getSerie(apiCallTvComplete) {
+        // Faccio partire la chiamata per le serie
+        axios.get(apiCallTvComplete)
+            .then((response) => {
+                console.log(apiCallTvComplete)
+                console.log(response.data)
+
+                // Condizione qualora la ricerca non portasse a nulla
+                if (response.data.results.length === 0) {
+                    console.log('errore')
+                    this.foundSeries = ''
+                    return this.errorMessage = true
+                }
+
+                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                this.errorMessage = false
+
+                // Setta la variabile con l'oggetto desiderato
+                this.foundSeries = response.data
+            })
+    }
 
     // Metodo che mi permette di richiamare la API, non più utile
     // getApi() {
