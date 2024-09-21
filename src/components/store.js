@@ -80,6 +80,7 @@ export const store = reactive({
         }
     },
 
+    // Metodo che richiama i film
     getFilm(apiCallComplete) {
         axios.get(apiCallComplete)
             .then((response) => {
@@ -101,6 +102,7 @@ export const store = reactive({
             })
     },
 
+    // Metodo che richiama le serie
     getSerie(apiCallTvComplete) {
         // Faccio partire la chiamata per le serie
         axios.get(apiCallTvComplete)
@@ -123,7 +125,8 @@ export const store = reactive({
             })
     }
 
-    // Metodo che mi permette di richiamare la API, non più utile
+    // ! Non più utili
+    // Metodo che mi permette di richiamare la API
     // getApi() {
     //     axios.get(apiCallComplete)
     //         .then((response) => {

@@ -27,12 +27,13 @@ export default {
 
 <template>
     <main>
-        
         <div v-if="store.errorMessage">Errore</div>
+
         <!-- Parte la chiamata basata sui film -->
         <div v-if="store.typeOfEntertainment === 'film'">
             <h3>Film</h3>
             <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
+                <li><img :src="'https://image.tmdb.org/t/p/w300' + foundFilm.backdrop_path" :alt="foundFilm.title"></li>
                 <li>{{ foundFilm.title }}</li>
                 <li>{{ foundFilm.original_title }}</li>
                 <li v-if="createKeyObject(foundFilm)">
@@ -47,6 +48,7 @@ export default {
         <div v-if="store.typeOfEntertainment === 'serie'">
             <h3>Series</h3>
             <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
+                <li><img :src="'https://image.tmdb.org/t/p/w300' + foundSerie.backdrop_path" :alt="foundSerie.title"></li>
                 <li>{{ foundSerie.name }}</li>
                 <li>{{ foundSerie.original_name }}</li>
                 <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
@@ -58,14 +60,9 @@ export default {
         <!-- Parte la chiamata per entrambi -->
         <div v-if="store.typeOfEntertainment === 'film-serie'">
             <h3>Film & Series</h3>
-            <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
-                <li>{{ foundSerie.name }}</li>
-                <li>{{ foundSerie.original_name }}</li>
-                <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
-                <li v-else>{{ foundSerie.original_language }}</li>
-                <li>{{ foundSerie.vote_average }}</li>
-            </ul>
+            
             <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
+                <li><img :src="'https://image.tmdb.org/t/p/w300' + foundFilm.backdrop_path" :alt="foundFilm.title"></li>
                 <li>{{ foundFilm.title }}</li>
                 <li>{{ foundFilm.original_title }}</li>
                 <li v-if="createKeyObject(foundFilm)">
@@ -73,6 +70,15 @@ export default {
                 </li>
                 <li v-else>{{ foundFilm.original_language }}</li>
                 <li>{{ foundFilm.vote_average }}</li>
+            </ul>
+
+            <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
+                <li><img :src="'https://image.tmdb.org/t/p/w300' + foundSerie.backdrop_path" :alt="foundSerie.title"></li>
+                <li>{{ foundSerie.name }}</li>
+                <li>{{ foundSerie.original_name }}</li>
+                <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
+                <li v-else>{{ foundSerie.original_language }}</li>
+                <li>{{ foundSerie.vote_average }}</li>
             </ul>
         </div>
     </main>
