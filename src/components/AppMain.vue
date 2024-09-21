@@ -40,7 +40,12 @@ export default {
                     <lang-flag :iso=foundFilm.original_language />
                 </li>
                 <li v-else>{{ foundFilm.original_language }}</li>
-                <li>{{ store.roundVote(foundFilm.vote_average) }}</li>
+
+                <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+                <li v-if="foundFilm.vote_average">
+                    <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
+                </li>
+                <li v-else>Not voted yet</li>
             </ul>
         </div>
 
@@ -53,7 +58,12 @@ export default {
                 <li>{{ foundSerie.original_name }}</li>
                 <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
                 <li v-else>{{ foundSerie.original_language }}</li>
-                <li>{{ store.roundVote(foundSerie.vote_average) }}</li>
+
+                <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+                <li v-if="foundSerie.vote_average">
+                    <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
+                </li>
+                <li v-else>Not voted yet</li>
             </ul>
         </div>
 
@@ -69,7 +79,12 @@ export default {
                     <lang-flag :iso=foundFilm.original_language />
                 </li>
                 <li v-else>{{ foundFilm.original_language }}</li>
-                <li>{{ store.roundVote(foundFilm.vote_average) }}</li>
+
+                <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+                <li v-if="foundFilm.vote_average">
+                    <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
+                </li>
+                <li v-else>Not voted yet</li>
             </ul>
 
             <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
@@ -78,7 +93,12 @@ export default {
                 <li>{{ foundSerie.original_name }}</li>
                 <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
                 <li v-else>{{ foundSerie.original_language }}</li>
-                <li>{{ store.roundVote(foundSerie.vote_average) }}</li>
+
+                <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+                <li v-if="foundSerie.vote_average">
+                    <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
+                </li>
+                <li v-else>Not voted yet</li>
             </ul>
         </div>
     </main>
