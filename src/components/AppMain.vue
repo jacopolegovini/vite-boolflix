@@ -31,7 +31,7 @@ export default {
 
         <!-- Parte la chiamata basata sui film -->
         <div v-if="store.typeOfEntertainment === 'film'">
-            <h3>Film</h3>
+            <h3 v-if="store.foundFilms.results">Film</h3>
             <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
                 <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
                 <li>{{ foundFilm.title }}</li>
@@ -46,7 +46,7 @@ export default {
 
         <!-- Parte la chiamata basata sulle serie -->
         <div v-if="store.typeOfEntertainment === 'serie'">
-            <h3>Series</h3>
+            <h3 v-if="store.foundSeries.results">Series</h3>
             <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
                 <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
                 <li>{{ foundSerie.name }}</li>
@@ -59,7 +59,7 @@ export default {
 
         <!-- Parte la chiamata per entrambi -->
         <div v-if="store.typeOfEntertainment === 'film-serie'">
-            <h3>Film & Series</h3>
+            <h3 v-if="store.foundFilms.results">Film & Series</h3>
             
             <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
                 <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
