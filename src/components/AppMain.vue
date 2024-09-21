@@ -29,6 +29,7 @@ export default {
     <main>
         
         <div v-if="store.errorMessage">Errore</div>
+        <!-- Parte la chiamata basata sui film -->
         <div v-if="store.typeOfEntertainment === 'film'">
             <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
                 <li>{{ foundFilm.title }}</li>
@@ -40,13 +41,35 @@ export default {
                 <li>{{ foundFilm.vote_average }}</li>
             </ul>
         </div>
+
+        <!-- Parte la chiamata basata sulle serie -->
         <div v-if="store.typeOfEntertainment === 'serie'">
-            <ul v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
+            <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
                 <li>{{ foundSerie.name }}</li>
                 <li>{{ foundSerie.original_name }}</li>
                 <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
                 <li v-else>{{ foundSerie.original_language }}</li>
                 <li>{{ foundSerie.vote_average }}</li>
+            </ul>
+        </div>
+
+        <!-- Parte la chiamata per entrambi -->
+        <div v-if="store.typeOfEntertainment === ''">
+            <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
+                <li>{{ foundSerie.name }}</li>
+                <li>{{ foundSerie.original_name }}</li>
+                <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
+                <li v-else>{{ foundSerie.original_language }}</li>
+                <li>{{ foundSerie.vote_average }}</li>
+            </ul>
+            <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
+                <li>{{ foundFilm.title }}</li>
+                <li>{{ foundFilm.original_title }}</li>
+                <li v-if="createKeyObject(foundFilm)">
+                    <lang-flag :iso=foundFilm.original_language />
+                </li>
+                <li v-else>{{ foundFilm.original_language }}</li>
+                <li>{{ foundFilm.vote_average }}</li>
             </ul>
         </div>
     </main>

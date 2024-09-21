@@ -11,19 +11,6 @@ export const store = reactive({
     errorMessage: false,
 
     // Methods
-    // Metodo che mi permette di richiamare la API, non più utile
-    // getApi() {
-    //     axios.get(apiCallComplete)
-    //         .then((response) => {
-    //             console.log(this.apiCallComplete)
-    //             console.log(response.data)
-    //             store.foundFilms = response.data
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // },
-
     // Metodo che ingloba getApi() e che mi permette di modificare la stringa e richiamarla insieme
     modifyGetApiCall(searchedFilm) {
         // Dichiaro la stringa della API
@@ -37,6 +24,7 @@ export const store = reactive({
         console.log(apiCallTvComplete)
 
         if (this.typeOfEntertainment === 'film') {
+
             // Faccio partire la chiamata per i film
             axios.get(apiCallComplete)
                 .then((response) => {
@@ -56,7 +44,49 @@ export const store = reactive({
                     // Setta la variabile con l'oggetto desiderato
                     this.foundFilms = response.data
                 })
+        } else if (this.typeOfEntertainment === 'serie') {
+
+            // Faccio partire la chiamata per le serie
+            axios.get(apiCallTvComplete)
+                .then((response) => {
+                    console.log(apiCallTvComplete)
+                    console.log(response.data)
+
+                    // Condizione qualora la ricerca non portasse a nulla
+                    if (response.data.results.length === 0) {
+                        console.log('errore')
+                        this.foundSeries = ''
+                        return this.errorMessage = true
+                    }
+
+                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                    this.errorMessage = false
+
+                    // Setta la variabile con l'oggetto desiderato
+                    this.foundSeries = response.data
+                })
         } else {
+
+            // Faccio partire la chiamata per il film
+            axios.get(apiCallComplete)
+                .then((response) => {
+                    console.log(apiCallComplete)
+                    console.log(response.data)
+
+                    // Condizione qualora la ricerca non portasse a nulla
+                    if (response.data.results.length === 0) {
+                        console.log('errore')
+                        this.foundFilms = ''
+                        return this.errorMessage = true
+                    }
+
+                    // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                    this.errorMessage = false
+
+                    // Setta la variabile con l'oggetto desiderato
+                    this.foundFilms = response.data
+                })
+
             // Faccio partire la chiamata per le serie
             axios.get(apiCallTvComplete)
                 .then((response) => {
@@ -121,5 +151,18 @@ export const store = reactive({
         uz: 'uz',
         vi: 'vn',
         zh: 'cn',
-    }
+    },
+
+    // Metodo che mi permette di richiamare la API, non più utile
+    // getApi() {
+    //     axios.get(apiCallComplete)
+    //         .then((response) => {
+    //             console.log(this.apiCallComplete)
+    //             console.log(response.data)
+    //             store.foundFilms = response.data
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // },
 })
