@@ -40,7 +40,7 @@ export default {
                     <lang-flag :iso=foundFilm.original_language />
                 </li>
                 <li v-else>{{ foundFilm.original_language }}</li>
-                <li>{{ foundFilm.vote_average }}</li>
+                <li>{{ store.roundVote(foundFilm.vote_average) }}</li>
             </ul>
         </div>
 
@@ -53,7 +53,7 @@ export default {
                 <li>{{ foundSerie.original_name }}</li>
                 <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
                 <li v-else>{{ foundSerie.original_language }}</li>
-                <li>{{ foundSerie.vote_average }}</li>
+                <li>{{ store.roundVote(foundSerie.vote_average) }}</li>
             </ul>
         </div>
 
@@ -69,7 +69,7 @@ export default {
                     <lang-flag :iso=foundFilm.original_language />
                 </li>
                 <li v-else>{{ foundFilm.original_language }}</li>
-                <li>{{ foundFilm.vote_average }}</li>
+                <li>{{ store.roundVote(foundFilm.vote_average) }}</li>
             </ul>
 
             <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
@@ -78,7 +78,7 @@ export default {
                 <li>{{ foundSerie.original_name }}</li>
                 <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
                 <li v-else>{{ foundSerie.original_language }}</li>
-                <li>{{ foundSerie.vote_average }}</li>
+                <li>{{ store.roundVote(foundSerie.vote_average) }}</li>
             </ul>
         </div>
     </main>

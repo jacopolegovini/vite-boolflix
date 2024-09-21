@@ -123,6 +123,12 @@ export const store = reactive({
                 // Setta la variabile con l'oggetto desiderato
                 this.foundSeries = response.data
             })
+    },
+
+    // Metodo che arrotonda i numeri da 1 a 5
+    roundVote(vote) {
+        let roundVote = Math.ceil(vote / 2);
+        return roundVote;
     }
 
     // ! Non più utili
