@@ -27,6 +27,8 @@ export default {
     header {
         background-color: black;
         height: 10vh;
+        position: sticky;
+        top: 0;
     }
 
     .general-header {
