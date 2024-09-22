@@ -68,12 +68,6 @@ export default {
         padding: 20px 0;
     }
 
-    .general-results {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
     .error-message {
         color: white;
         font-size: 2rem;

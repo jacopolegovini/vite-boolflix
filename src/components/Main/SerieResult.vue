@@ -46,4 +46,9 @@ export default {
 </template>
 
 <style scoped>
+    .general-results {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
 </style>
