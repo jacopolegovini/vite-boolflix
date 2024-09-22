@@ -26,8 +26,10 @@ export default {
                 <div class="general-results">
                     <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
                         <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+                        
+                        <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
                         <li>{{ foundSerie.name }}</li>
-                        <li>{{ foundSerie.original_name }}</li>
+                        <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
 
                         <!-- Condizione per verificare se la lingua esiste o meno -->
                         <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>

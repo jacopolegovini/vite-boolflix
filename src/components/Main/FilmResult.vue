@@ -27,8 +27,10 @@ export default {
                 <div class="general-results">
                     <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
                         <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
+
+                        <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
                         <li>{{ foundFilm.title }}</li>
-                        <li>{{ foundFilm.original_title }}</li>
+                        <li v-if="foundFilm.title !== foundFilm.original_title">{{ foundFilm.original_title }}</li>
 
                         <!-- Condizione per verificare se la lingua esiste o meno -->
                         <li v-if="createKeyObject(foundFilm)">

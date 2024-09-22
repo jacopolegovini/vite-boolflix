@@ -31,8 +31,9 @@ export default {
             <li v-if="foundFilm.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
             <li class="img-placeholder" v-else><img src="" alt="placeholder"></li>
 
+            <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
             <li>{{ foundFilm.title }}</li>
-            <li>{{ foundFilm.original_title }}</li>
+            <li v-if="foundFilm.title !== foundFilm.original_title">{{ foundFilm.original_title }}</li>
 
             <!-- Condizione per verificare se la lingua esiste o meno -->
             <li v-if="createKeyObject(foundFilm)">
@@ -51,8 +52,10 @@ export default {
     <div class="general-results">
         <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
             <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+
+            <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
             <li>{{ foundSerie.name }}</li>
-            <li>{{ foundSerie.original_name }}</li>
+            <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
 
                 <!-- Condizione per verificare se la lingua esiste o meno -->
             <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
