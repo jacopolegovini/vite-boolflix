@@ -1,4 +1,7 @@
 <script>
+import FilmAndSerieResult from './Main/FilmAndSerieResult.vue';
+import FilmResult from './Main/FilmResult.vue';
+import SerieResult from './Main/SerieResult.vue';
 import { store } from './store.js'
 import LangFlag from 'vue-lang-code-flags';
 
@@ -9,7 +12,10 @@ export default {
         }
     },
     components: {
-        LangFlag
+        LangFlag,
+        FilmResult,
+        SerieResult,
+        FilmAndSerieResult
     },
     methods: {
         // Metodo per risolvere il problema delle lingue senza bandiera
@@ -31,86 +37,19 @@ export default {
             <div class="error-message" v-if="store.errorMessage">It seems pretty empty to me... try searching something else!</div>
     
             <!-- Parte la chiamata basata sui film -->
-            <div v-if="store.typeOfEntertainment === 'film'">
-                <h3 v-if="store.foundFilms.results">Film</h3>
-                <div class="general-results">
-                    <ul class="film-results general-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
-                        <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
-                        <li>{{ foundFilm.title }}</li>
-                        <li>{{ foundFilm.original_title }}</li>
-                        <li v-if="createKeyObject(foundFilm)">
-                            <lang-flag :iso=foundFilm.original_language />
-                        </li>
-                        <li v-else>{{ foundFilm.original_language }}</li>
-        
-                        <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-                        <li v-if="foundFilm.vote_average">
-                            <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
-                        </li>
-                        <li v-else>Not voted yet</li>
-                    </ul>
-                </div>
-            </div>
+            <FilmResult
+                :createKeyObject="createKeyObject"
+            />
     
             <!-- Parte la chiamata basata sulle serie -->
-            <div v-if="store.typeOfEntertainment === 'serie'">
-                <h3 v-if="store.foundSeries.results">Series</h3>
-                <div class="general-results">
-                    <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
-                        <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
-                        <li>{{ foundSerie.name }}</li>
-                        <li>{{ foundSerie.original_name }}</li>
-                        <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
-                        <li v-else>{{ foundSerie.original_language }}</li>
-        
-                        <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-                        <li v-if="foundSerie.vote_average">
-                            <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
-                        </li>
-                        <li v-else>Not voted yet</li>
-                    </ul>
-                </div>
-            </div>
+            <SerieResult
+                :createKeyObject="createKeyObject"
+            />
     
             <!-- Parte la chiamata per entrambi -->
-            <div v-if="store.typeOfEntertainment === 'film-serie'">
-                <h3 v-if="store.foundFilms.results">Film & Series</h3>
-                
-                <div class="general-results">
-                    <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
-                        <li v-if="foundFilm.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
-                        <li class="img-placeholder" v-else><img src="" alt="placeholder"></li>
-                        <li>{{ foundFilm.title }}</li>
-                        <li>{{ foundFilm.original_title }}</li>
-                        <li v-if="createKeyObject(foundFilm)">
-                            <lang-flag :iso=foundFilm.original_language />
-                        </li>
-                        <li v-else>{{ foundFilm.original_language }}</li>
-        
-                        <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-                        <li v-if="foundFilm.vote_average">
-                            <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
-                        </li>
-                        <li v-else>Not voted yet</li>
-                    </ul>
-                </div>
-    
-                <div class="general-results">
-                    <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
-                        <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
-                        <li>{{ foundSerie.name }}</li>
-                        <li>{{ foundSerie.original_name }}</li>
-                        <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
-                        <li v-else>{{ foundSerie.original_language }}</li>
-        
-                        <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-                        <li v-if="foundSerie.vote_average">
-                            <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
-                        </li>
-                        <li v-else>Not voted yet</li>
-                    </ul>
-                </div>
-            </div>
+            <FilmAndSerieResult
+                :createKeyObject="createKeyObject"
+            />
         </div>
     </main>
 </template>
@@ -121,8 +60,17 @@ export default {
         background-color: #434343;
     }
 
+    h2 {
+        color: white;
+        text-decoration: underline;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 20px 0;
+    }
+
     .general-results {
         display: flex;
+        gap: 20px;
         flex-wrap: wrap;
     }
 
