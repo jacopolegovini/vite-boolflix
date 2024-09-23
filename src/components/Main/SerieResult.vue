@@ -35,7 +35,7 @@ export default {
             <img src="../../assets/dummy-landscape-placeholder.svg" alt="placeholder">
           </li>
         </div>
-        
+
         <!-- Se il mouse è hover un determinato elemento -->
         <div class="mouse-over" v-else>
           <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
@@ -48,9 +48,15 @@ export default {
 
           <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
           <li v-if="foundSerie.vote_average">
+              <strong>Voto:</strong>
               <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
           </li>
-          <li v-else>Not voted yet</li>
+          <li v-else><strong>Voto:</strong>Not voted yet</li>
+
+          <!-- Overview -->
+          <li class="overview">
+            <p><strong>Overview:</strong> {{ foundSerie.overview }}</p>
+          </li>
         </div>
       </ul>
   </div>
@@ -77,5 +83,19 @@ export default {
       width: 342px;
       background-color: black;
       color: white;
+      overflow: auto;
+    }
+
+    .mouse-over li {
+        padding: 5px 0;
+        font-size: 1.2rem;
+    }
+
+    .overview {
+      overflow: auto;
+    }
+    
+    .fa-star {
+        color: yellow;
     }
 </style>

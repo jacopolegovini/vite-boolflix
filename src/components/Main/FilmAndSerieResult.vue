@@ -50,9 +50,15 @@ export default {
   
                   <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
                   <li v-if="foundFilm.vote_average">
-                      <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
+                    <strong>Voto:</strong>  
+                    <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
                   </li>
-                  <li v-else>Not voted yet</li>
+                  <li v-else><strong>Voto:</strong>Not voted yet</li>
+
+                    <!-- Overview -->
+                    <li class="overview">
+                    <p><strong>Overview:</strong> {{ foundFilm.overview }}</p>
+                  </li>
               </div>
           </ul>
       </div>
@@ -82,9 +88,15 @@ export default {
 
           <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
           <li v-if="foundSerie.vote_average">
-              <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
+                <strong>Voto:</strong>
+                <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
           </li>
-          <li v-else>Not voted yet</li>
+          <li v-else><strong>Voto:</strong>Not voted yet</li>
+
+          <!-- Overview -->
+          <li class="overview">
+            <p><strong>Overview:</strong> {{ foundSerie.overview }}</p>
+          </li>
         </div>
       </ul>
   </div>
@@ -112,10 +124,19 @@ export default {
       background-color: black;
       color: white;
       padding: 10px;
+      overflow: auto;
     }
 
     .mouse-over li {
         padding: 5px 0;
         font-size: 1.2rem;
+    }
+
+    .overview {
+      overflow: auto;
+    }
+
+    .fa-star {
+        color: yellow;
     }
 </style>
