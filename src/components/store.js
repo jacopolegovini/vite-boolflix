@@ -5,8 +5,10 @@ import axios from "axios";
 export const store = reactive({
     foundFilms: {},
     foundSeries: {},
+    foundBoth: {},
     searchedFilm: '',
     typeOfEntertainment: 'film-serie',
+    apiCallBoth: '',
     apiCallComplete: '',
     errorMessage: false,
     currentIndex: null,
@@ -136,6 +138,37 @@ export const store = reactive({
     setIndex(index) {
         this.currentIndex = index
     },
+
+    // Metodo che mi permette di richiamare sia i film che le serie 
+    modifyGetBothApiCall(searchedFilm) {
+        // Dichiaro la stringa della API
+        let bothApiCall = 'https://api.themoviedb.org/3/search/multi?api_key=34587ee4d591e753a1e153f18ed4c583&query='
+
+        // Metto insieme con la parola cercata
+        let bothApiCallComplete = bothApiCall + searchedFilm;
+
+        this.getBoth(bothApiCallComplete)
+        console.log(bothApiCallComplete)
+    },
+
+    getBoth(bothApiCallComplete) {
+        axios.get(bothApiCallComplete)
+            .then((response) => {
+                // Condizione qualora la ricerca non portasse a nulla
+                if (response.data.results.length === 0) {
+                    console.log('errore')
+                    this.foundBoth = ''
+                    return this.errorMessage = true
+                }
+
+                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                this.errorMessage = false
+
+                // Setta la variabile con l'oggetto desiderato
+                this.foundBoth = response.data
+                console.log(this.foundBoth)
+            })
+    }
 
     // ! Deprecato
     // Metodo che mi permette di richiamare la API

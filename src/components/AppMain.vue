@@ -4,6 +4,7 @@ import FilmResult from './Main/FilmResult.vue';
 import SerieResult from './Main/SerieResult.vue';
 import { store } from './store.js'
 import LangFlag from 'vue-lang-code-flags';
+import TotalResult from './TotalResult.vue';
 
 export default {
     data() {
@@ -15,7 +16,8 @@ export default {
         LangFlag,
         FilmResult,
         SerieResult,
-        FilmAndSerieResult
+        FilmAndSerieResult,
+        TotalResult
     },
     methods: {
         // Metodo per risolvere il problema delle lingue senza bandiera
@@ -36,6 +38,10 @@ export default {
         <div class="general-main container">
             <div class="error-message" v-if="store.errorMessage">It seems pretty empty to me... try searching something else!</div>
     
+            <TotalResult
+                :createKeyObject="createKeyObject"
+            />
+
             <!-- Parte la chiamata basata sui film -->
             <FilmResult
                 :createKeyObject="createKeyObject"
@@ -47,9 +53,9 @@ export default {
             />
     
             <!-- Parte la chiamata per entrambi -->
-            <FilmAndSerieResult
+            <!-- <FilmAndSerieResult
                 :createKeyObject="createKeyObject"
-            />
+            /> -->
         </div>
     </main>
 </template>
