@@ -29,7 +29,11 @@ export default {
 
               <!-- Se il mouse non è hover un determinato elemento -->
               <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">
-                <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
+                <!-- Se l'immagine è presente -->
+                <li v-if="foundFilm.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
+
+                <!-- Se l'immagine non è presente -->
+                <li class="img-placeholder" v-else><img src="../../assets/dummy-landscape-placeholder.svg" alt="placeholder"></li>
               </div>
             
               <!-- Se il mouse è hover un determinato elemento -->
@@ -58,7 +62,12 @@ export default {
 
         <!-- Se il mouse non è hover un determinato elemento -->
         <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">
-          <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+          <!-- Se l'immagine è presente -->
+          <li v-if="foundSerie.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+          <!-- Se l'immagine non è presente -->
+          <li class="img-placeholder" v-else>
+            <img src="../../assets/dummy-landscape-placeholder.svg" alt="placeholder">
+          </li>
         </div>
         
         <!-- Se il mouse è hover un determinato elemento -->
@@ -89,10 +98,24 @@ export default {
         flex-wrap: wrap;
     }
 
+    img {
+        border: 1px solid white;
+    }
+
+    .img-placeholder img {
+        width: 342px;
+    }
+
     .mouse-over {
       height: 513px;
       width: 342px;
       background-color: black;
       color: white;
+      padding: 10px;
+    }
+
+    .mouse-over li {
+        padding: 5px 0;
+        font-size: 1.2rem;
     }
 </style>

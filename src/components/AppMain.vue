@@ -74,12 +74,4 @@ export default {
         font-weight: 500;
         padding-top: 20px;
     }
-
-    img {
-        border: 1px solid white;
-    }
-
-    .img-placeholder img {
-        width: 342px;
-    }
 </style>

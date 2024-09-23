@@ -28,7 +28,12 @@ export default {
 
         <!-- Se il mouse non è hover un determinato elemento -->
         <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">
-          <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+          <!-- Se l'immagine è presente -->
+          <li v-if="foundSerie.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+          <!-- Se l'immagine non è presente -->
+          <li class="img-placeholder" v-else>
+            <img src="../../assets/dummy-landscape-placeholder.svg" alt="placeholder">
+          </li>
         </div>
         
         <!-- Se il mouse è hover un determinato elemento -->
@@ -57,6 +62,14 @@ export default {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
+    }
+
+    img {
+        border: 1px solid white;
+    }
+
+    .img-placeholder img {
+        width: 342px;
     }
 
     .mouse-over {

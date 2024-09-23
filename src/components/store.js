@@ -132,12 +132,12 @@ export const store = reactive({
         return roundVote;
     },
 
+    // Metodo che stabilisce l'indice attuale di un ciclo for.
     setIndex(index) {
         this.currentIndex = index
-        console.log(index)
     },
 
-    // ! Non più utili
+    // ! Deprecato
     // Metodo che mi permette di richiamare la API
     // getApi() {
     //     axios.get(apiCallComplete)
