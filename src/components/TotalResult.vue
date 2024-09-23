@@ -1,6 +1,6 @@
 <script>
-import { store } from './store.js'
 import LangFlag from 'vue-lang-code-flags';
+import {store} from './store.js'
 
 export default {
   data() {
@@ -40,7 +40,7 @@ export default {
               </div>
             
               <!-- Se il mouse è hover un determinato elemento -->
-              <div class="mouse-over" v-else>
+              <div class="mouse-over" v-else @mouseleave="store.resetIndex()">
                 <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
                 <li><strong>Titolo: </strong>{{ element.title }}{{ element.name }}</li>
                 <li v-if="element.title !== element.original_title"><strong>Titolo Originale: </strong>{{ element.original_title }}</li>
@@ -90,6 +90,8 @@ export default {
       color: white;
       padding: 40px 10px 10px 10px;
       overflow: auto;
+      border: 1px solid white;
+
     }
 
     .mouse-over li {

@@ -58,6 +58,88 @@ export const store = reactive({
     },
 
     // ! Methods
+    // Metodo che arrotonda i numeri da 1 a 5
+    roundVote(vote) {
+        let roundVote = Math.ceil(vote / 2);
+        return roundVote;
+    },
+
+    // Metodo che stabilisce l'indice attuale di un ciclo for.
+    setIndex(index) {
+        this.currentIndex = index
+    },
+
+    // Metodo che resetta il currentIndex a 0 per permettere il reset della card
+    resetIndex() {
+        this.currentIndex = null;
+    },
+
+    // Metodo che costruisce i link per richiamare sia i film che le serie, comprende getBoth(bothApiCallComplete) 
+    modifyGetBothApiCall(searchedFilm) {
+        // Dichiaro la stringa della API
+        let bothApiCall = 'https://api.themoviedb.org/3/search/multi?api_key=34587ee4d591e753a1e153f18ed4c583&query='
+
+        // Metto insieme con la parola cercata
+        let bothApiCallComplete = bothApiCall + searchedFilm;
+
+        this.getBoth(bothApiCallComplete)
+        console.log(bothApiCallComplete)
+    },
+
+    // Metodo che richiama i film e serie
+    getBoth(bothApiCallComplete) {
+        axios.get(bothApiCallComplete)
+            .then((response) => {
+                // Condizione qualora la ricerca non portasse a nulla
+                if (response.data.results.length === 0) {
+                    console.log('errore')
+                    this.foundBoth = ''
+                    return this.errorMessage = true
+                }
+
+                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
+                this.errorMessage = false
+
+                // Setta la variabile con l'oggetto desiderato
+                this.foundBoth = response.data.results
+
+                // Se l'utente seleziona film 
+                if (this.typeOfEntertainment === 'film') {
+                    const filteredFoundBoth = this.foundBoth.filter(element => {
+                        return element.media_type === 'movie';
+                    });
+
+                    console.log(filteredFoundBoth);
+                    this.foundBoth = filteredFoundBoth;
+                }
+
+                // Se l'utente seleziona serie 
+                if (this.typeOfEntertainment === 'serie') {
+                    const filteredFoundBoth = this.foundBoth.filter(element => {
+                        return element.media_type === 'tv';
+                    });
+
+                    console.log(filteredFoundBoth);
+                    this.foundBoth = filteredFoundBoth;
+
+                }
+            })
+    }
+
+    // ! Deprecato
+    // Metodo che mi permette di richiamare la API
+    // getApi() {
+    //     axios.get(apiCallComplete)
+    //         .then((response) => {
+    //             console.log(this.apiCallComplete)
+    //             console.log(response.data)
+    //             store.foundFilms = response.data
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // },
+
     // Metodo che ingloba getApi() e che mi permette di modificare la stringa e richiamarla insieme
     // modifyGetApiCall(searchedFilm) {
     //     // Dichiaro la stringa della API
@@ -128,79 +210,4 @@ export const store = reactive({
     //         })
     // },
 
-    // Metodo che arrotonda i numeri da 1 a 5
-    roundVote(vote) {
-        let roundVote = Math.ceil(vote / 2);
-        return roundVote;
-    },
-
-    // Metodo che stabilisce l'indice attuale di un ciclo for.
-    setIndex(index) {
-        this.currentIndex = index
-    },
-
-    // Metodo che mi permette di richiamare sia i film che le serie 
-    modifyGetBothApiCall(searchedFilm) {
-        // Dichiaro la stringa della API
-        let bothApiCall = 'https://api.themoviedb.org/3/search/multi?api_key=34587ee4d591e753a1e153f18ed4c583&query='
-
-        // Metto insieme con la parola cercata
-        let bothApiCallComplete = bothApiCall + searchedFilm;
-
-        this.getBoth(bothApiCallComplete)
-        console.log(bothApiCallComplete)
-    },
-
-    getBoth(bothApiCallComplete) {
-        axios.get(bothApiCallComplete)
-            .then((response) => {
-                // Condizione qualora la ricerca non portasse a nulla
-                if (response.data.results.length === 0) {
-                    console.log('errore')
-                    this.foundBoth = ''
-                    return this.errorMessage = true
-                }
-
-                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                this.errorMessage = false
-
-                // Setta la variabile con l'oggetto desiderato
-                this.foundBoth = response.data.results
-
-                // Se l'utente seleziona film 
-                if (this.typeOfEntertainment === 'film') {
-                    const filteredFoundBoth = this.foundBoth.filter(element => {
-                        return element.media_type === 'movie';
-                    });
-
-                    console.log(filteredFoundBoth);
-                    this.foundBoth = filteredFoundBoth;
-                }
-
-                // Se l'utente seleziona serie 
-                if (this.typeOfEntertainment === 'serie') {
-                    const filteredFoundBoth = this.foundBoth.filter(element => {
-                        return element.media_type === 'tv';
-                    });
-
-                    console.log(filteredFoundBoth);
-                    this.foundBoth = filteredFoundBoth;
-
-                }
-            })
-    }
-
-    // ! Deprecato
-    // Metodo che mi permette di richiamare la API
-    // getApi() {
-    //     axios.get(apiCallComplete)
-    //         .then((response) => {
-    //             console.log(this.apiCallComplete)
-    //             console.log(response.data)
-    //             store.foundFilms = response.data
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // },
 })

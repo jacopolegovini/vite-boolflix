@@ -1,11 +1,9 @@
 <script>
 import SearchFilm from './SearchFilm.vue'
 
-
 export default {
     data() {
         return {
-
         }
     },
     components: {
