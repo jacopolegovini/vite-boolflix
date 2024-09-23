@@ -25,12 +25,12 @@ export default {
         <div class="general-search-film">
             <input type="text" v-model="searchedFilm"
                 @keyup.enter="searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
-            <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment), searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">
+            <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment), searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
                 <option value="film-serie">Film & Serie</option>
                 <option value="film">Film</option>
                 <option value="serie">Serie</option>
             </select>
-            <button @click="searchFilm(searchedFilm), store.modifyGetApiCall(searchedFilm)">Cerca <i class="fa-solid fa-magnifying-glass"></i></button>
+            <button @click="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">Cerca <i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </main>
 </template>

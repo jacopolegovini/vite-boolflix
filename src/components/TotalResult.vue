@@ -27,7 +27,7 @@ export default {
       <h2 v-if="store.foundBoth.results">Film & Serie</h2>
 
       <div class="general-results">
-          <ul class="film-results" v-for="(element, index) in store.foundBoth.results" :key="index">
+          <ul class="film-results" v-for="(element, index) in store.foundBoth" :key="index">
 
               <!-- Se il mouse non è hover un determinato elemento -->
               <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">

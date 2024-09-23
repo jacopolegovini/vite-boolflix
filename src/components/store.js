@@ -5,7 +5,7 @@ import axios from "axios";
 export const store = reactive({
     foundFilms: {},
     foundSeries: {},
-    foundBoth: {},
+    foundBoth: [],
     searchedFilm: '',
     typeOfEntertainment: 'film-serie',
     apiCallBoth: '',
@@ -165,11 +165,11 @@ export const store = reactive({
                 this.errorMessage = false
 
                 // Setta la variabile con l'oggetto desiderato
-                this.foundBoth = response.data
+                this.foundBoth = response.data.results
                 console.log(this.foundBoth)
 
                 if (this.typeOfEntertainment === 'film') {
-                    const filteredFoundBoth = this.foundBoth.results.filter(element => {
+                    const filteredFoundBoth = this.foundBoth.filter(element => {
                         return element.media_type === 'movie';
                     });
 
@@ -178,7 +178,7 @@ export const store = reactive({
                 }
 
                 if (this.typeOfEntertainment === 'serie') {
-                    const filteredFoundBoth = this.foundBoth.results.filter(element => {
+                    const filteredFoundBoth = this.foundBoth.filter(element => {
                         return element.media_type === 'tv';
                     });
 
