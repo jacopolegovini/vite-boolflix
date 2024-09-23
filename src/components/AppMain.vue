@@ -42,15 +42,16 @@ export default {
                 :createKeyObject="createKeyObject"
             />
 
+            <!-- ! Deprecato: componenti multipli sostituiti da un unico -->
             <!-- Parte la chiamata basata sui film -->
-            <FilmResult
+            <!-- <FilmResult
                 :createKeyObject="createKeyObject"
-            />
+            /> -->
     
             <!-- Parte la chiamata basata sulle serie -->
-            <SerieResult
+            <!-- <SerieResult
                 :createKeyObject="createKeyObject"
-            />
+            /> -->
     
             <!-- Parte la chiamata per entrambi -->
             <!-- <FilmAndSerieResult

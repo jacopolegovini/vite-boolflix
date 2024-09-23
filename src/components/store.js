@@ -167,6 +167,27 @@ export const store = reactive({
                 // Setta la variabile con l'oggetto desiderato
                 this.foundBoth = response.data
                 console.log(this.foundBoth)
+
+                if (this.typeOfEntertainment === 'film') {
+                    const filteredFoundBoth = this.foundBoth.results.filter(element => {
+                        return element.media_type === 'movie';
+                    });
+
+                    console.log(filteredFoundBoth);
+                    this.foundBoth = filteredFoundBoth;
+                }
+
+                if (this.typeOfEntertainment === 'serie') {
+                    const filteredFoundBoth = this.foundBoth.results.filter(element => {
+                        return element.media_type === 'tv';
+                    });
+
+                    console.log(filteredFoundBoth);
+                    this.foundBoth = filteredFoundBoth;
+
+                }
+
+                console.log(this.foundBoth)
             })
     }
 
