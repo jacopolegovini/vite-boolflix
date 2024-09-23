@@ -4,7 +4,7 @@ import { store } from './store.js'
 export default {
     data() {
         return {
-            store
+            store,
         }
     },
     methods: {
@@ -23,7 +23,7 @@ export default {
 <template>
     <main>
         <div class="general-search-film">
-            <input type="text" v-model="searchedFilm"
+            <input type="text" v-model.trim="searchedFilm"
                 @keyup.enter="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
             <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment), searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
                 <option value="film-serie">Film & Serie</option>

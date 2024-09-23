@@ -60,8 +60,11 @@ export default {
                 <li v-else><strong>Voto: </strong> Not voted yet</li>
 
                 <!-- Overview -->
-                <li class="overview">
+                <li class="overview" v-if="element.overview">
                   <p><strong>Overview:</strong> {{ element.overview }}</p>
+                </li>
+                <li v-else>
+                    <p>No overview</p>
                 </li>
               </div>
           </ul>
