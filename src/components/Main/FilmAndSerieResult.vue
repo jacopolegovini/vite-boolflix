@@ -25,49 +25,60 @@ export default {
     <h2 v-if="store.foundFilms.results">Film & Series</h2>
     
     <div class="general-results">
-        <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
+          <ul class="film-results" v-for="(foundFilm, index) in store.foundFilms.results" :key="index">
 
-            <!-- Condizione per verificare se l'immagine è presente o meno -->
-            <li v-if="foundFilm.poster_path"><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
-            <li class="img-placeholder" v-else><img src="" alt="placeholder"></li>
+              <!-- Se il mouse non è hover un determinato elemento -->
+              <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">
+                <li><img :src="'https://image.tmdb.org/t/p/w342' + foundFilm.poster_path" :alt="foundFilm.title"></li>
+              </div>
+            
+              <!-- Se il mouse è hover un determinato elemento -->
+              <div class="mouse-over" v-else>
+                <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
+                <li>{{ foundFilm.title }}</li>
+                  <li v-if="foundFilm.title !== foundFilm.original_title">{{ foundFilm.original_title }}</li>
 
-            <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
-            <li>{{ foundFilm.title }}</li>
-            <li v-if="foundFilm.title !== foundFilm.original_title">{{ foundFilm.original_title }}</li>
+                  <!-- Condizione per verificare se la lingua esiste o meno -->
+                  <li v-if="createKeyObject(foundFilm)">
+                      <lang-flag :iso=foundFilm.original_language />
+                  </li>
+                  <li v-else>{{ foundFilm.original_language }}</li>
+  
+                  <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+                  <li v-if="foundFilm.vote_average">
+                      <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
+                  </li>
+                  <li v-else>Not voted yet</li>
+              </div>
+          </ul>
+      </div>
 
-            <!-- Condizione per verificare se la lingua esiste o meno -->
-            <li v-if="createKeyObject(foundFilm)">
-                <lang-flag :iso=foundFilm.original_language />
-            </li>
-            <li v-else>{{ foundFilm.original_language }}</li>
+      <div class="general-results">
+      <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
 
-            <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-            <li v-if="foundFilm.vote_average">
-                <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
-            </li>
-            <li v-else>Not voted yet</li>
-        </ul>
-    </div>
+        <!-- Se il mouse non è hover un determinato elemento -->
+        <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">
+          <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+        </div>
+        
+        <!-- Se il mouse è hover un determinato elemento -->
+        <div class="mouse-over" v-else>
+          <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
+          <li>{{ foundSerie.name }}</li>
+          <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
 
-    <div class="general-results">
-        <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
-            <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+          <!-- Condizione per verificare se la lingua esiste o meno -->
+          <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
+          <li v-else>{{ foundSerie.original_language }}</li>
 
-            <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
-            <li>{{ foundSerie.name }}</li>
-            <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
-
-                <!-- Condizione per verificare se la lingua esiste o meno -->
-            <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
-            <li v-else>{{ foundSerie.original_language }}</li>
-
-            <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-            <li v-if="foundSerie.vote_average">
-                <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
-            </li>
-            <li v-else>Not voted yet</li>
-        </ul>
-    </div>
+          <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+          <li v-if="foundSerie.vote_average">
+              <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
+          </li>
+          <li v-else>Not voted yet</li>
+        </div>
+      </ul>
+  </div>
 </div>
 </template>
 
@@ -76,5 +87,12 @@ export default {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
+    }
+
+    .mouse-over {
+      height: 513px;
+      width: 342px;
+      background-color: black;
+      color: white;
     }
 </style>

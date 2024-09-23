@@ -9,6 +9,7 @@ export const store = reactive({
     typeOfEntertainment: 'film-serie',
     apiCallComplete: '',
     errorMessage: false,
+    currentIndex: null,
     nationalities: {
         am: 'et',
         ar: 'sy',
@@ -129,7 +130,12 @@ export const store = reactive({
     roundVote(vote) {
         let roundVote = Math.ceil(vote / 2);
         return roundVote;
-    }
+    },
+
+    setIndex(index) {
+        this.currentIndex = index
+        console.log(index)
+    },
 
     // ! Non più utili
     // Metodo che mi permette di richiamare la API

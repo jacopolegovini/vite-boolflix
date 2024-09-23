@@ -22,27 +22,34 @@ export default {
 
 <template>
 <div v-if="store.typeOfEntertainment === 'serie'">
-                <h2 v-if="store.foundSeries.results">Series</h2>
-                <div class="general-results">
-                    <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
-                        <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
-                        
-                        <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
-                        <li>{{ foundSerie.name }}</li>
-                        <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
+  <h2 v-if="store.foundSeries.results">Series</h2>
+  <div class="general-results">
+      <ul class="serie-result" v-for="(foundSerie, index) in store.foundSeries.results" :key="index">
 
-                        <!-- Condizione per verificare se la lingua esiste o meno -->
-                        <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
-                        <li v-else>{{ foundSerie.original_language }}</li>
+        <!-- Se il mouse non è hover un determinato elemento -->
+        <div class="mouse-not-over" @mouseover="store.setIndex(index)" v-if="index !== store.currentIndex">
+          <li><img :src="'https://image.tmdb.org/t/p/w342' + foundSerie.poster_path" :alt="foundSerie.title"></li>
+        </div>
         
-                        <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-                        <li v-if="foundSerie.vote_average">
-                            <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
-                        </li>
-                        <li v-else>Not voted yet</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Se il mouse è hover un determinato elemento -->
+        <div class="mouse-over" v-else>
+          <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
+          <li>{{ foundSerie.name }}</li>
+          <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
+
+          <!-- Condizione per verificare se la lingua esiste o meno -->
+          <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
+          <li v-else>{{ foundSerie.original_language }}</li>
+
+          <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+          <li v-if="foundSerie.vote_average">
+              <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundSerie.vote_average)"></i>
+          </li>
+          <li v-else>Not voted yet</li>
+        </div>
+      </ul>
+  </div>
+</div>
 </template>
 
 <style scoped>
@@ -50,5 +57,12 @@ export default {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
+    }
+
+    .mouse-over {
+      height: 513px;
+      width: 342px;
+      background-color: black;
+      color: white;
     }
 </style>
