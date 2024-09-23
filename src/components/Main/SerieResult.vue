@@ -39,12 +39,12 @@ export default {
         <!-- Se il mouse è hover un determinato elemento -->
         <div class="mouse-over" v-else>
           <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
-          <li>{{ foundSerie.name }}</li>
-          <li v-if="foundSerie.title !== foundSerie.original_title">{{ foundSerie.original_name }}</li>
+          <li><strong>Titolo: </strong> {{ foundSerie.name }}</li>
+          <li v-if="foundSerie.title !== foundSerie.original_title"><strong>Titolo Originale: </strong>{{ foundSerie.original_name }}</li>
 
           <!-- Condizione per verificare se la lingua esiste o meno -->
-          <li v-if="createKeyObject(foundSerie)"><lang-flag :iso=foundSerie.original_language /></li>
-          <li v-else>{{ foundSerie.original_language }}</li>
+          <li v-if="createKeyObject(foundSerie)"><span><strong>Lingua: </strong></span><lang-flag :iso=foundSerie.original_language /></li>
+          <li v-else><span><strong>Lingua: </strong></span>{{ foundSerie.original_language }}</li>
 
           <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
           <li v-if="foundSerie.vote_average">
@@ -83,6 +83,7 @@ export default {
       width: 342px;
       background-color: black;
       color: white;
+      padding: 40px 10px 10px 10px;
       overflow: auto;
     }
 

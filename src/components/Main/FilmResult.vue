@@ -42,26 +42,27 @@ export default {
               <!-- Se il mouse è hover un determinato elemento -->
               <div class="mouse-over" v-else>
                 <!-- Condizione per verificare se il titolo e il titolo originale sono ripetuti -->
-                <li>{{ foundFilm.title }}</li>
-                  <li v-if="foundFilm.title !== foundFilm.original_title">{{ foundFilm.original_title }}</li>
+                <li><strong>Titolo: </strong>{{ foundFilm.title }}</li>
+                <li v-if="foundFilm.title !== foundFilm.original_title"><strong>Titolo Originale: </strong>{{ foundFilm.original_title }}</li>
 
-                  <!-- Condizione per verificare se la lingua esiste o meno -->
-                  <li v-if="createKeyObject(foundFilm)">
-                      <lang-flag :iso=foundFilm.original_language />
-                  </li>
-                  <li v-else>{{ foundFilm.original_language }}</li>
-  
-                  <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
-                  <li v-if="foundFilm.vote_average">
-                      <strong>Voto:</strong>
-                      <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
-                  </li>
-                  <li v-else><strong>Voto:</strong> Not voted yet</li>
+                <!-- Condizione per verificare se la lingua esiste o meno -->
+                <li v-if="createKeyObject(foundFilm)">
+                  <span><strong>Lingua: </strong></span>  
+                  <lang-flag :iso=foundFilm.original_language />
+                </li>
+                <li v-else><span><strong>Lingua: </strong></span>{{ foundFilm.original_language }}</li>
 
-                  <!-- Overview -->
-                  <li class="overview">
-                    <p><strong>Overview:</strong> {{ foundFilm.overview }}</p>
-                  </li>
+                <!-- Se esiste un voto compare sotto forma di stelle, se no compare un placeholder -->
+                <li v-if="foundFilm.vote_average">
+                    <strong>Voto: </strong>
+                    <i class="fa-solid fa-star" v-for="vote in store.roundVote(foundFilm.vote_average)"></i>
+                </li>
+                <li v-else><strong>Voto: </strong> Not voted yet</li>
+
+                <!-- Overview -->
+                <li class="overview">
+                  <p><strong>Overview:</strong> {{ foundFilm.overview }}</p>
+                </li>
               </div>
           </ul>
       </div>
@@ -88,6 +89,7 @@ export default {
       width: 342px;
       background-color: black;
       color: white;
+      padding: 40px 10px 10px 10px;
       overflow: auto;
     }
 
