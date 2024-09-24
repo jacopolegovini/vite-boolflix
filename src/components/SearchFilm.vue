@@ -15,7 +15,14 @@ export default {
         decideTypeOfEntertainment(typeOfEntertainment) {
             console.log(typeOfEntertainment)
             return store.typeOfEntertainment = typeOfEntertainment
+        },
+        decideTypeOfGenre(typeOfGenre) {
+            console.log(typeOfGenre)
+            return store.typeOfGenre = typeOfGenre
         }
+    }, 
+    created() {
+        store.getGenre()
     }
 }
 </script>
@@ -24,7 +31,7 @@ export default {
     <main>
         <div class="general-search-film">
             <select v-model="typeOfGenre">
-                <option value="typeOfGenre" ></option>
+                <option value="typeOfGenre" v-for="(genre, index) in store.foundGenre" :key="index">{{ genre.name }}</option>
             </select>
             <input type="text" v-model.trim="searchedFilm"
             @keyup.enter="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
