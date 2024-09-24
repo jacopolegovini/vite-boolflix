@@ -10,13 +10,7 @@ export default {
         }
     },
     methods: {
-        searchFilm(searchedFilm) {
-            console.log(searchedFilm)
-            return store.searchedFilm = searchedFilm
-        },
-
         decideTypeOfEntertainment(typeOfEntertainment) {
-            console.log(typeOfEntertainment)
             return store.typeOfEntertainment = typeOfEntertainment
         },
         
@@ -43,6 +37,7 @@ export default {
 
                     // Setta la variabile con l'oggetto desiderato
                     store.foundGenre = response.data.genres
+                    store.selectedGenreId = response.data.genres.id
                 })
         },
     }, 
@@ -55,17 +50,18 @@ export default {
 <template>
     <main>
         <div class="general-search-film">
-            <input type="text" v-model.trim="searchedFilm"
-            @keyup.enter="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)" placeholder="Inserisci il titolo">
-            <select class="entertainment-selection" v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment), searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
+            <input type="text" v-model.trim="store.searchedFilm"
+            @keyup.enter="store.modifyGetBothApiCall(store.searchedFilm)" placeholder="Inserisci il titolo">
+            <select class="entertainment-selection" v-model="store.typeOfEntertainment" @change="store.modifyGetBothApiCall(store.searchedFilm)">
                 <option value="film-serie">Film & Serie</option>
                 <option value="film">Film</option>
                 <option value="serie">Serie</option>
             </select>
-            <select class="genre-selection" v-model="typeOfGenre">
+            <select class="genre-selection" v-model="store.typeOfGenre">
+                <option disabled value="">Filtra per genere</option>
                 <option value="typeOfGenre" v-for="(genre, index) in store.foundGenre" :key="index">{{ genre.name }}</option>
             </select>
-            <button @click="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">Cerca <i class="fa-solid fa-magnifying-glass"></i></button>
+            <button @click="store.modifyGetBothApiCall(store.searchedFilm)">Cerca <i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </main>
 </template>
@@ -92,6 +88,6 @@ export default {
     }
 
     .genre-selection{
-        width: 100px;
+        width: 160px;
     }
 </style>

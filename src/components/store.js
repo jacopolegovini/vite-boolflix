@@ -13,6 +13,7 @@ export const store = reactive({
     apiCallBoth: '',
     apiCallMovieComplete: '',
     apiCallTvComplete: '',
+    selectedGenreId: null,
     errorMessage: false,
     currentIndex: null,
     nationalities: {
@@ -109,6 +110,14 @@ export const store = reactive({
                 // Se l'utente seleziona film 
                 if (this.typeOfEntertainment === 'film') {
                     const filteredFoundBoth = this.foundBoth.filter(element => {
+
+                        if (this.selectedGenreId) {
+                            let idArray = element.genre_ids
+                            const id = idArray.find(element => {
+                                return
+                            })
+                        }
+
                         return element.media_type === 'movie';
                     });
 
