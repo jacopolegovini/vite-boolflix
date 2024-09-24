@@ -9,10 +9,10 @@ export const store = reactive({
     foundGenre: [],
     searchedFilm: '',
     typeOfEntertainment: 'film-serie',
+    typeOfGenre: '',
     apiCallBoth: '',
     apiCallMovieComplete: '',
     apiCallTvComplete: '',
-    typeOfGenre: '',
     errorMessage: false,
     currentIndex: null,
     nationalities: {
@@ -126,29 +126,6 @@ export const store = reactive({
                     this.foundBoth = filteredFoundBoth;
 
                 }
-            })
-    },
-
-
-    // Metodo che richiama i film
-    getGenre() {
-        let apiCallGenre = `https://api.themoviedb.org/3/genre/movie/list?api_key=34587ee4d591e753a1e153f18ed4c583`;
-        axios.get(apiCallGenre)
-            .then((response) => {
-
-                // Condizione qualora la ricerca non portasse a nulla
-                if (response.data.genres.length === 0) {
-                    console.log('errore')
-                    this.foundGenre = ''
-                    return this.errorMessage = true
-                }
-
-                // Resetta la variabile qualora si ricercasse dopo una ricerca con esito negativo
-                this.errorMessage = false
-
-                // Setta la variabile con l'oggetto desiderato
-                this.foundGenre = response.data.genres
-                console.log(this.foundGenre)
             })
     },
 
