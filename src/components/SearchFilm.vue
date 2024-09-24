@@ -23,8 +23,11 @@ export default {
 <template>
     <main>
         <div class="general-search-film">
+            <select v-model="typeOfGenre">
+                <option value="typeOfGenre" ></option>
+            </select>
             <input type="text" v-model.trim="searchedFilm"
-                @keyup.enter="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
+            @keyup.enter="searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
             <select v-model="typeOfEntertainment" @change="decideTypeOfEntertainment(typeOfEntertainment), searchFilm(searchedFilm), store.modifyGetBothApiCall(searchedFilm)">
                 <option value="film-serie">Film & Serie</option>
                 <option value="film">Film</option>

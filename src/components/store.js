@@ -124,7 +124,50 @@ export const store = reactive({
 
                 }
             })
-    }
+    },
+
+
+    // Metodo che richiama i film
+    getGenre(apiCallComplete) {
+        axios.get(apiCallComplete)
+            .then((response) => {
+                console.log(apiCallComplete)
+                console.log(response.data)
+
+                // Condizione qualora la ricerca non portasse a nulla
+                if (response.data.results.length === 0) {
+                    console.log('errore')
+                    this.foundFilms = ''
+                    return this.errorMessage = true
+                }
+            })
+    },
+
+    // Metodo che ingloba getApi() e che mi permette di modificare la stringa e richiamarla insieme
+    modifyGetApiCall(searchedFilm) {
+        // Dichiaro la stringa della API
+        let apiCallMovie = `https://api.themoviedb.org/3/genre/movie/list?api_key=34587ee4d591e753a1e153f18ed4c583&query=`;
+        let apiCallTv = `https://api.themoviedb.org/3/genre/tv/list?api_key=34587ee4d591e753a1e153f18ed4c583&query=`;
+
+        // Metto insieme con la parola cercata
+        let apiCallMovieComplete = apiCallMovie + searchedFilm;
+        let apiCallTvComplete = apiCallTv + searchedFilm;
+        console.log(apiCallMovieComplete)
+        console.log(apiCallTvComplete)
+
+        // Gestisco le varie condizioni con le funzioni preparate 
+        if (this.typeOfEntertainment === 'film') {
+            this.getFilm(apiCallMovieComplete)
+
+        } else if (this.typeOfEntertainment === 'serie') {
+            this.getSerie(apiCallTvComplete)
+
+        } else {
+            this.getFilm(apiCallMovieComplete)
+            this.getSerie(apiCallTvComplete)
+        }
+    },
+
 
     // ! Deprecato
     // Metodo che mi permette di richiamare la API
